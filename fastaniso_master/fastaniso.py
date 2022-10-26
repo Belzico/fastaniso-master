@@ -3,7 +3,7 @@ import warnings
 import copy
 
 
-def anisodiff(img, niter=1, kappa=50, gamma=0.1, step=(1., 1.), option=1, ploton=False):
+def anisodiff(img, niter=1, result_list=[], kappa=50, gamma=0.1, step=(1., 1.), option=1, ploton=False):
     """
     Anisotropic diffusion.
 
@@ -69,15 +69,19 @@ def anisodiff(img, niter=1, kappa=50, gamma=0.1, step=(1., 1.), option=1, ploton
 
     # initialize output array
     img = img.astype('float32')
-    imgout = img.copy()
+    imgout = copy.deepcopy(img)
+    #imgout = img.copy()
 
     # initialize some internal variables
     deltaS = np.zeros_like(imgout)  # matrices del mismo tamaño de ceros
-    deltaE = deltaS.copy()
-    NS = deltaS.copy()
-    EW = deltaS.copy()
+    #deltaE = deltaS.copy()
+    deltaE = copy.deepcopy(deltaS)
+    #NS = deltaS.copy()
+    NS = copy.deepcopy(deltaS)
+    #EW = deltaS.copy()
+    EW = copy.deepcopy(deltaS)
     gS = np.ones_like(imgout)  # a partir de aca iwal pero de unos
-    gE = gS.copy()
+    gE = copy.deepcopy(gS)
 
     # create the plot figure, if requested
     if ploton:
@@ -102,12 +106,14 @@ def anisodiff(img, niter=1, kappa=50, gamma=0.1, step=(1., 1.), option=1, ploton
 
         # conduction gradients (only need to compute one per dim!)
         if option == 1:
-            temp1=(deltaS/kappa)**2.
-            temp2=(deltaE/kappa)**2.
+            temp1 = (deltaS/kappa)**2.
+            temp2 = (deltaE/kappa)**2.
             deltaS2 = np.zeros_like(imgout)
             deltaE2 = np.zeros_like(imgout)
-            deltaS2=np.copy(deltaS)
-            deltaE2=np.copy(deltaE)
+            # deltaS2=np.copy(deltaS)
+            # deltaE2=np.copy(deltaE)
+            deltaS2 = copy.deepcopy(deltaS)
+            deltaE2 = copy.deepcopy(deltaE)
 
             gS = np.exp(-(temp1))/step[0]
             gE = np.exp(-(temp2))/step[1]
@@ -116,8 +122,8 @@ def anisodiff(img, niter=1, kappa=50, gamma=0.1, step=(1., 1.), option=1, ploton
             gE = 1./(1.+(deltaE/kappa)**2.)/step[1]
 
         # update matrices
-        E = gE*deltaE2
-        S = gS*deltaS2
+        E = gE * deltaE2
+        S = gS * deltaS2
 
         # subtract a copy that has been shifted 'North/West' by one
         # pixel. don't as questions. just do it. trust me.
@@ -127,7 +133,8 @@ def anisodiff(img, niter=1, kappa=50, gamma=0.1, step=(1., 1.), option=1, ploton
         EW[:, 1:] -= E[:, :-1]
 
         # update the image
-        imgout += gamma*(NS+EW)
+        imgout += gamma*(NS + EW)
+        result_list.append(copy.deepcopy(imgout))
 
         if ploton:
             iterstring = "Iteration %i" % (ii+1)
