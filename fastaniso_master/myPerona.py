@@ -30,22 +30,26 @@ import pathlib
 # cv2.imwrite('Bordes.png',lap)
 
 
-#multiple images
-rute_up="d:\\escuela\\tesis\\AniDif\\fastaniso-master\\ds_ini"
-rute_down="d:\\escuela\\tesis\\AniDif\\fastaniso-master\\ds_final"
+# multiple images
+rute_up = "d:\\escuela\\tesis\\AniDif\\fastaniso-master\\ds_ini"
+rute_down = "d:\\escuela\\tesis\\AniDif\\fastaniso-master\\ds_final"
+rute_salt_and_pepper = "c:\\Users\Bell\\Documents\\GitHub\\Addin-noise-to-images\\diferent_noise\\salt_and_pepper"
+
 print(str(pathlib.Path(__file__).parent.absolute()))
-number_of_iterations=100
+number_of_iterations = 1000
+
 
 def image_retrieve():
-    rootDir = rute_up
+    rootDir = rute_salt_and_pepper
     rootFinal = rute_down
     i = 0
     for dirName, subdirList, fileList in os.walk(rootDir):
-        
+
         for fname in fileList:
             # creamos la carpeta asociada a la foto
             if not (os.path.isdir(str(rootFinal)+"\\"+str(fname)[:len(str(fname))-4] + str('_') + str(i))):
-                os.mkdir(str(rootFinal)+"\\"+str(fname)[:len(str(fname))-4] + str('_') + str(i))
+                os.mkdir(str(rootFinal)+"\\"+str(fname)
+                         [:len(str(fname))-4] + str('_') + str(i))
             # aca cuando metamos concurrencia
             # concurrency_handler()
             print(dirName)
@@ -56,20 +60,20 @@ def image_retrieve():
             print("-----------------------")
             print(fname)
             print("-----------------------")
-            result_list=[]
+            result_list = []
             img_PIL = io.imread(str(dirName)+'\\'+str(fname))
 
-            j=0
-            os.chdir(rute_down+'\\'+str(fname)[:len(str(fname))-4]+ str('_') + str(i))
-            io.imsave( str(i)+'_ite_'+str(0)+'.jpg', img_PIL)
-            
+            j = 0
+            os.chdir(rute_down+'\\'+str(fname)
+                     [:len(str(fname))-4] + str('_') + str(i))
+            io.imsave(str(i)+'_ite_'+str(0)+'.jpg', img_PIL)
 
-            fastaniso.anisodiff(img_PIL, number_of_iterations,result_list)
+            fastaniso.anisodiff(img_PIL, number_of_iterations, result_list)
             for item in result_list:
-                j+=1
+                j += 1
                 io.imsave(str(i)+'_ite_'+str(j)+'.jpg', result_list[j-1])
-                
-            i+=1
+
+            i += 1
 
 
 image_retrieve()
