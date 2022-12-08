@@ -36,11 +36,11 @@ rute_down = "d:\\escuela\\tesis\\AniDif\\fastaniso-master\\ds_final"
 rute_salt_and_pepper = "c:\\Users\Bell\\Documents\\GitHub\\Addin-noise-to-images\\diferent_noise\\salt_and_pepper"
 
 print(str(pathlib.Path(__file__).parent.absolute()))
-number_of_iterations = 1000
+number_of_iterations = 200
 
 
 def image_retrieve():
-    rootDir = rute_salt_and_pepper
+    rootDir = rute_up
     rootFinal = rute_down
     i = 0
     for dirName, subdirList, fileList in os.walk(rootDir):
@@ -77,13 +77,25 @@ def image_retrieve():
 
 
 image_retrieve()
-img_PIL = io.imread('fastaniso_master\\leoimage.jpg')
-ani = fastaniso.anisodiff(img_PIL, 700)
+img_PIL = io.imread('D:\\escuela\\tesis\\AniDif\\fastaniso-master\\fastanas.png')
+ani = fastaniso.anisodiff(img_PIL, 0)
 
 print(type(img_PIL))
 print(img_PIL.dtype)
 print(img_PIL.shape)
 print(img_PIL.min(), img_PIL.max())
 plt.imshow(img_PIL)
-io.imsave('wawa700.jpg', ani)
+io.imsave('wawa00.jpg', ani)
+print("a")
+
+
+
+ani = fastaniso.anisodiff(img_PIL, 9090000)
+
+print(type(img_PIL))
+print(img_PIL.dtype)
+print(img_PIL.shape)
+print(img_PIL.min(), img_PIL.max())
+plt.imshow(img_PIL)
+io.imsave('wawa9090000.jpg', ani)
 print("a")
