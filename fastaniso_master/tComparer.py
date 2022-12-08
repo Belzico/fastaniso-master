@@ -64,7 +64,9 @@ def image_retrieve():
             b=0
             for dirName2, subdirList2, fileList2 in os.walk(rootFasta):
                 
-                if fname=="circ_1.4_t01.jpg":
+                if dirName2== rootFasta+"\\circ_1.4reduce_t5":
+                    print("a")
+                if fname=="circ_1.4reduce_t5.jpg":
                     print("a")
                     
                 for fname2 in fileList2:
