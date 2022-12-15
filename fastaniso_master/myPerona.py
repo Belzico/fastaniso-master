@@ -36,7 +36,7 @@ rute_down = "d:\\escuela\\tesis\\AniDif\\fastaniso-master\\ds_final"
 rute_salt_and_pepper = "c:\\Users\Bell\\Documents\\GitHub\\Addin-noise-to-images\\diferent_noise\\salt_and_pepper"
 
 print(str(pathlib.Path(__file__).parent.absolute()))
-number_of_iterations = 200
+number_of_iterations = 50
 
 
 def image_retrieve():

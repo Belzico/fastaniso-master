@@ -64,10 +64,10 @@ def image_retrieve():
             b=0
             for dirName2, subdirList2, fileList2 in os.walk(rootFasta):
                 
-                if dirName2== rootFasta+"\\circ_1.4reduce_t5":
-                    print("a")
-                if fname=="circ_1.4reduce_t5.jpg":
-                    print("a")
+                #if dirName2== rootFasta+"\\circ_1.4reduce_t5":
+                #    print("a")
+                #if fname=="circ_1.4reduce_t5.jpg":
+                #    print("a")
                     
                 for fname2 in fileList2:
                     sub=dirName2[len(rute_down)+1:len(dirName2)]+".jpg"
@@ -80,13 +80,13 @@ def image_retrieve():
                         if diff<result2[fname][0]:
                             result2[fname]=(diff,b,fname2)
                     
-                    if sub[0:10] ==  fname[0:10] :
+                    #if sub[0:10] ==  fname[0:10] :
                         
-                        b = io.imread(str(dirName2)+'\\'+str(fname2))
-                        diff= compareImage(a,b)
-                        #print(result1[fname])
-                        if diff<result1[fname][0]:
-                            result1[fname]=(diff,b,fname2)
+                    b = io.imread(str(dirName2)+'\\'+str(fname2))
+                    diff= compareImage(a,b)
+                    #print(result1[fname])
+                    if diff<result1[fname][0]:
+                        result1[fname]=(diff,b,fname2)
                         
                    
                         
